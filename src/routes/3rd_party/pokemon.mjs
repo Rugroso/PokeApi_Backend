@@ -1,5 +1,5 @@
 import express from "express";
-import Pokemon from "../models/Pokemon.mjs";
+import Pokemon from "../../models/3rd_party/Pokemon.mjs";
 
 const router = express.Router();
 
