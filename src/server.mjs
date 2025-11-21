@@ -12,8 +12,7 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.mjs";
-import charactersRoutes from "./routes/characters.mjs";
-import usersRoutes from "./routes/users.mjs";
+import pokemonRoutes from "./routes/3rd_party/pokemon.mjs";
 
 const app = express();
 
@@ -33,47 +32,27 @@ app.use(async (req, res, next) => {
   }
 });
 
-const VALID_API_KEYS = JSON.parse(process.env.API_KEY_LIST); // Lista de API keys válidas
-
-const authenticateApiKey = (req, res, next) => {
-    const apiKey = req.header('X-API-KEY'); // Get API key from 'X-API-KEY' header
-
-    if (!apiKey) {
-        return res.status(401).json({ message: 'API Key is missing.' });
-    }
-
-    if (!VALID_API_KEYS.includes(apiKey)) {
-        return res.status(401).json({ message: 'Invalid API Key.' });
-    }
-
-    // API Key is valid, proceed to the next middleware or route handler
-    next();
-};
-
-
 // Rutas principales
-app.get("/", authenticateApiKey, (req, res) => {
+app.get("/", (req, res) => {
   res.json({
-    message: "Marvel API corriendo correctamente",
+    message: "Pokemon API corriendo correctamente",
     version: "1.0.0",
     environment: "Vercel Serverless",
     endpoints: {
-      characters: "/api/characters",
-      users: "/api/users",
+      pokemon: "/api/pokemon",
     },
   });
 });
 
 // Rutas de la API
-app.use("/api", charactersRoutes);
-app.use("/api", usersRoutes);
+
+app.use("/api", pokemonRoutes);
 
 // Para desarrollo local
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
-  });
-}
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
 
 export default app;
