@@ -52,7 +52,6 @@ const pokemonSchema = new mongoose.Schema(
 
 // Índice para mejorar las consultas
 pokemonSchema.index({ name: 1 });
-pokemonSchema.index({ pokeId: 1 });
 
 const Pokemon = mongoose.model("Pokemon", pokemonSchema);
 

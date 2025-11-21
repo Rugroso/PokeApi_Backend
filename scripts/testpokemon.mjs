@@ -37,10 +37,14 @@ async function testPokemonAPI() {
 
     if (!res.ok) throw new Error(JSON.stringify(data));
 
-    console.log("Pokemon:", data.pokemon.name);
     console.log("ID:", data.pokemon.pokeId);
+    console.log("Pokemon:", data.pokemon.name);
+    console.log("Sprite:", data.pokemon.sprite);
+    console.log("Tipos:", data.pokemon.types.join(", "));
     console.log("Altura:", data.pokemon.height);
-    console.log("Peso:", data.pokemon.weight, "\n");
+    console.log("Peso:", data.pokemon.weight);
+    console.log("Habilidades:", data.pokemon.abilities.join(", "));
+    console.log("Stats:", data.pokemon.stats.join(", "));
 
     // 4) Búsqueda por nombre parcial
     console.log('4. Buscando pokemon que contengan "char"...');
