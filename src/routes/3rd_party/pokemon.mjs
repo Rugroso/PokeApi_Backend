@@ -4,8 +4,6 @@ import Pokemon from "../../models/3rd_party/Pokemon.mjs";
 const router = express.Router();
 const POKEAPI_BASE_URL = "https://pokeapi.co/api/v2";
 
-// Aquí van a poner los endpoints del 3rd party API de Pokemón
-
 // Helper: buscar pokemon en PokeAPI por nombre o id
 const fetchPokemonFromAPI = async ({ id, name }) => {
   try {

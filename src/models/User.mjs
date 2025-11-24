@@ -20,28 +20,41 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-      // Lista de favoritos del usuario (personajes de Marvel)
-      favorites: [
-        {
-          marvelId: {
-            type: Number,
-            required: true,
-          },
-          name: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          thumbnail: {
-            type: String,
-            default: "",
-          },
-          addedAt: {
-            type: Date,
-            default: Date.now,
-          },
+    // Lista de favoritos del usuario (personajes de Marvel)
+    favorites: [
+      {
+        marvelId: {
+          type: Number,
+          required: true,
         },
-      ],
+        name: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        thumbnail: {
+          type: String,
+          default: "",
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    // Lista de pokémon favoritos del usuario (solo IDs)
+    pokemonFavorites: [
+      {
+        pokeId: {
+          type: Number,
+          required: true,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-// Esto no significa casi nada de momento, pero aqui va a ir lo de los pokemones de 3rd party API
-
 const pokemonSchema = new mongoose.Schema(
   {
     pokeId: {
