@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.mjs";
 import pokemonRoutes from "./routes/3rd_party/pokemon.mjs";
+import UserRoutes from "./routes/user.mjs";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", pokemonRoutes);
+app.use("/api", UserRoutes);
 
 const startServer = async () => {
   await connectDB();
