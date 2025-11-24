@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.mjs";
 import pokemonRoutes from "./routes/3rd_party/pokemon.mjs";
-import UserRoutes from "./routes/user.mjs";
+import UserRoutes from "./routes/users.mjs";
 
 dotenv.config();
 
