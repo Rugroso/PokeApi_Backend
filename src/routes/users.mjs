@@ -112,6 +112,24 @@ const fetchPokemonFromAPI = async ({ id, name }) => {
   }
 };
 
+// GET /api/users - Obtener todos los usuarios
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find().select("-__v");
+
+    res.status(200).json({ 
+      count: users.length,
+      users 
+    });
+  } catch (error) {
+    console.error("Error al obtener usuarios:", error);
+    res.status(500).json({
+      error: "Error al obtener usuarios",
+      details: error.message,
+    }); 
+  }
+});
+
 // POST /api/users - Crear o actualizar usuario
 router.post("/users", async (req, res) => {
   try {
