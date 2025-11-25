@@ -4,69 +4,6 @@ import User from "../models/User.mjs";
 const router = express.Router();
 const POKEAPI_BASE_URL = "https://pokeapi.co/api/v2";
 
-// Helper: construir URL para la API de Marvel
-const buildMarvelUrl = (path, params = {}) => {
-  // Lee la base desde .env; puede incluir o no "/characters"
-  let base = (process.env.MARVEL_URL || "https://gateway.marvel.com/v1/public").toString();
-  const ts = process.env.MARVEL_TS || "1";
-  const apikey = process.env.MARVEL_APIKEY;
-  const hash = process.env.MARVEL_HASH;
-
-  // Normalizar: quitar slash(es) finales en base
-  base = base.replace(/\/+$/, "");
-
-  // Si la base ya contiene '/characters' y la ruta que le pasamos también comienza con '/characters',
-  // eliminamos el duplicado para evitar URLs como .../characters/characters
-  if (base.endsWith("/characters") && path.startsWith("/characters")) {
-    path = path.replace(/^\/characters/, "");
-  }
-
-  // Asegurar que la ruta comience con '/'
-  if (!path.startsWith("/")) path = `/${path}`;
-
-  const url = new URL(base + path);
-  url.searchParams.set("ts", ts);
-  if (apikey) url.searchParams.set("apikey", apikey);
-  if (hash) url.searchParams.set("hash", hash);
-
-  // añadir params adicionales
-  Object.entries(params).forEach(([k, v]) => {
-    if (v !== undefined && v !== null) url.searchParams.set(k, v);
-  });
-
-  return url.toString();
-};
-
-// Helper: buscar personaje en Marvel por nombre o id
-const fetchMarvelCharacter = async ({ id, name }) => {
-  try {
-    let url;
-    if (id) {
-      url = buildMarvelUrl(`/characters/${id}`);
-    } else if (name) {
-      url = buildMarvelUrl(`/characters`, { nameStartsWith: name, limit: 1 });
-    } else {
-      throw new Error("Se requiere id o name para buscar en Marvel");
-    }
-
-    const res = await fetch(url);
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`Marvel API error ${res.status}: ${text}`);
-    }
-
-    const data = await res.json();
-    // la estructura: data.data.results[]
-    if (data && data.data && Array.isArray(data.data.results) && data.data.results.length > 0) {
-      return data.data.results[0];
-    }
-
-    return null;
-  } catch (error) {
-    throw error;
-  }
-};
-
 // Helper: buscar pokemon en PokeAPI por nombre o id
 const fetchPokemonFromAPI = async ({ id, name }) => {
   try {
