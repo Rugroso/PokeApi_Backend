@@ -1,5 +1,4 @@
 import express from "express";
-import Pokemon from "../../models/3rd_party/Pokemon.mjs";
 
 const router = express.Router();
 const POKEAPI_BASE_URL = "https://pokeapi.co/api/v2";
