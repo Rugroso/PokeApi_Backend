@@ -32,12 +32,12 @@ const authenticateApiKey = (req, res, next) => {
 // Rutas principales
 app.get("/", authenticateApiKey, (req, res) => {
   res.json({
-    message: "Marvel API corriendo correctamente",
+    message: "PokeAPI corriendo correctamente",
     version: "1.0.0",
     environment: "Vercel Serverless",
     endpoints: {
-      characters: "/api/characters",
       users: "/api/users",
+      pokemon: "/api/pokemon",
     },
   });
 });
